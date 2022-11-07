@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:elevation="24dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/reviewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textSize="30sp"
+            tools:text="A Name" />
+
+        <TextView
+            android:id="@+id/reviewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewName"
+            tools:text="An Address" />
+
+        <TextView
+            android:id="@+id/reviewPostCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewAddress"
+            tools:text="A PostCode" />
+
+        <TextView
+            android:id="@+id/reviewJustEat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewPostCode"
+            tools:text="A Just Eat Rating" />
+
+        <TextView
+            android:id="@+id/reviewItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewJustEat"
+            tools:text="Items" />
+
+        <TextView
+            android:id="@+id/reviewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewItems"
+            tools:text="A Price" />
+
+        <TextView
+            android:id="@+id/reviewComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewPrice"
+            tools:text="Comments" />
+
+        <TextView
+            android:id="@+id/reviewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reviewComments"
+            tools:text="A Rating" />
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
