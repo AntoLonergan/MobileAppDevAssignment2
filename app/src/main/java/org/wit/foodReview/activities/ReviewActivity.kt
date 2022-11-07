@@ -8,7 +8,7 @@ import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.databinding.ActivityReviewBinding
 import timber.log.Timber.i
 
-class PlacemarkActivity : AppCompatActivity() {
+class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
     lateinit var app: MainApp
@@ -41,7 +41,7 @@ class PlacemarkActivity : AppCompatActivity() {
                 app.reviews.add(review.copy())
                 i("add Button Pressed: ${review}")
                 for (i in app.reviews.indices) {
-                    i("Placemark[$i]:${app.reviews[i]}")
+                    i("Review[$i]:${app.reviews[i]}")
                 }
             }
             else {
