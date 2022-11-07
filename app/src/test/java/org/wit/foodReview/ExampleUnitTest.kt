@@ -1,4 +1,4 @@
-package org.wit.foodreview
+package org.wit.foodReview
 
 import org.junit.Test
 

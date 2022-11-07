@@ -1,4 +1,4 @@
-package org.wit.foodreview
+package org.wit.foodReview
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
