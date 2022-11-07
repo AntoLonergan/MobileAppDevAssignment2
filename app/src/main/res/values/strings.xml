@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Food Review</string>
     <string name="button_addReview">Add Review</string>
+    <string name="menu_addReview">Add</string>
+    <string name="menu_cancelReview">Cancel</string>
+
     <string name="hint_reviewName">Name</string>
     <string name="hint_reviewAddress">Address</string>
     <string name="hint_reviewPostCode">PostCode</string>

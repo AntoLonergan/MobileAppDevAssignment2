@@ -1,24 +1,29 @@
 package org.wit.foodReview.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import org.wit.foodReview.main.MainApp
 import org.wit.foodReview.models.ReviewModel
+import org.wit.foodreview.R
 import org.wit.foodreview.databinding.ActivityReviewBinding
-import timber.log.Timber
 import timber.log.Timber.i
 
 class ReviewActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
-    val reviews = ArrayList<ReviewModel>()
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Timber.plant(Timber.DebugTree())
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
+
+        app = application as MainApp
         i("Review Activity started...")
 
         binding.btnAdd.setOnClickListener() {
@@ -38,15 +43,31 @@ class ReviewActivity : AppCompatActivity() {
                 review.price.isNotEmpty() &&
                 review.comments.isNotEmpty() &&
                 review.rating.isNotEmpty()) {
-                reviews.add(review.copy())
+                app.reviews.add(review.copy())
                 i("add Button Pressed: ${review}")
-                for (i in reviews.indices)
-                { i("Review[$i]:${this.reviews[i]}") }
+                for (i in app.reviews.indices) {
+                    i("Review[$i]:${app.reviews[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar.make(it,"Please Ensure All Fields Are Filled Out.", Snackbar.LENGTH_LONG)
                     .show()
             }
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_review, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
