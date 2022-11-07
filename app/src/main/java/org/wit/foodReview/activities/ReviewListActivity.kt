@@ -29,7 +29,7 @@ class ReviewListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = ReviewAdapter(app.reviews)
+        binding.recyclerView.adapter = ReviewAdapter(app.reviews.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,7 +53,7 @@ class ReviewListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.reviews.size)
+                notifyItemRangeChanged(0,app.reviews.findAll().size)
             }
         }
 }

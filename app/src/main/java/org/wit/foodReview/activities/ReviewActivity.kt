@@ -43,11 +43,7 @@ class ReviewActivity : AppCompatActivity() {
                 review.price.isNotEmpty() &&
                 review.comments.isNotEmpty() &&
                 review.rating.isNotEmpty()) {
-                app.reviews.add(review.copy())
-                i("add Button Pressed: ${review}")
-                for (i in app.reviews.indices) {
-                    i("Review[$i]:${app.reviews[i]}")
-                }
+                app.reviews.create(review.copy())
                 setResult(RESULT_OK)
                 finish()
             }
