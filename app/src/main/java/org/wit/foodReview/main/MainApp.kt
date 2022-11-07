@@ -13,9 +13,5 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Review started")
-        reviews.add(ReviewModel("Supermacs", "X42", "X54", "X54", "X54", "X54", "X54", "X54"))
-        reviews.add(ReviewModel("McDonalds", "X43", "X54", "X54", "X54", "X54", "X54", "X54"))
-        reviews.add(ReviewModel("Joe's", "X54", "X54", "X54", "X54", "X54", "X54", "X54"))
-        reviews.add(ReviewModel("Supermacs", "X42", "X54", "X54", "X54", "X54", "X54", "X54"))
     }
 }

@@ -43,6 +43,8 @@ class ReviewActivity : AppCompatActivity() {
                 for (i in app.reviews.indices) {
                     i("Review[$i]:${app.reviews[i]}")
                 }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar.make(it,"Please Ensure All Fields Are Filled Out.", Snackbar.LENGTH_LONG)
