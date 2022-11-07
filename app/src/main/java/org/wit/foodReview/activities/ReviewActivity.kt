@@ -3,22 +3,22 @@ package org.wit.foodReview.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import org.wit.foodReview.main.MainApp
 import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.databinding.ActivityReviewBinding
-import timber.log.Timber
 import timber.log.Timber.i
 
-class ReviewActivity : AppCompatActivity() {
-
+class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
-    val reviews = ArrayList<ReviewModel>()
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Timber.plant(Timber.DebugTree())
+
+        app = application as MainApp
         i("Review Activity started...")
 
         binding.btnAdd.setOnClickListener() {
@@ -38,10 +38,11 @@ class ReviewActivity : AppCompatActivity() {
                 review.price.isNotEmpty() &&
                 review.comments.isNotEmpty() &&
                 review.rating.isNotEmpty()) {
-                reviews.add(review.copy())
+                app.reviews.add(review.copy())
                 i("add Button Pressed: ${review}")
-                for (i in reviews.indices)
-                { i("Review[$i]:${this.reviews[i]}") }
+                for (i in app.reviews.indices) {
+                    i("Placemark[$i]:${app.reviews[i]}")
+                }
             }
             else {
                 Snackbar.make(it,"Please Ensure All Fields Are Filled Out.", Snackbar.LENGTH_LONG)
