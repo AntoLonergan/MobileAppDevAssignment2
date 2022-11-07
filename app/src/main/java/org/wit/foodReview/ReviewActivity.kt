@@ -1,7 +1,8 @@
-package org.wit.foodreview
+package org.wit.foodReview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.wit.foodreview.R
 import timber.log.Timber
 import timber.log.Timber.i
 

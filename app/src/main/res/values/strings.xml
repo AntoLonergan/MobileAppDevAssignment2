@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">FoodReview</string>
+    <string name="app_name">Food Review</string>
     <string name="button_addReview">Add Review</string>
+    <string name="hint_reviewTitle">Review Title</string>
 </resources>
