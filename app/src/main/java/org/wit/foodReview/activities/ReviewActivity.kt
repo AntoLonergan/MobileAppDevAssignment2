@@ -22,15 +22,29 @@ class ReviewActivity : AppCompatActivity() {
         i("Review Activity started...")
 
         binding.btnAdd.setOnClickListener() {
-            review.title = binding.reviewTitle.text.toString()
-            if (review.title.isNotEmpty()) {
+            review.name = binding.reviewName.text.toString()
+            review.address = binding.reviewAddress.text.toString()
+            review.postCode = binding.reviewPostCode.text.toString()
+            review.justEat = binding.reviewJustEat.text.toString()
+            review.items = binding.reviewItems.text.toString()
+            review.price = binding.reviewPrice.text.toString()
+            review.comments = binding.reviewComments.text.toString()
+            review.rating = binding.reviewRating.text.toString()
+            if (review.name.isNotEmpty() &&
+                review.address.isNotEmpty() &&
+                review.postCode.isNotEmpty() &&
+                review.justEat.isNotEmpty() &&
+                review.items.isNotEmpty() &&
+                review.price.isNotEmpty() &&
+                review.comments.isNotEmpty() &&
+                review.rating.isNotEmpty()) {
                 reviews.add(review.copy())
                 i("add Button Pressed: ${review}")
                 for (i in reviews.indices)
                 { i("Review[$i]:${this.reviews[i]}") }
             }
             else {
-                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                Snackbar.make(it,"Please Ensure All Fields Are Filled Out.", Snackbar.LENGTH_LONG)
                     .show()
             }
         }

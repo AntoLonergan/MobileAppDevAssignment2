@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Food Review</string>
     <string name="button_addReview">Add Review</string>
-    <string name="hint_reviewTitle">Review Title</string>
+    <string name="hint_reviewName">Name</string>
+    <string name="hint_reviewAddress">Address</string>
+    <string name="hint_reviewPostCode">PostCode</string>
+    <string name="hint_reviewJustEat">JustEat Rating</string>
+    <string name="hint_reviewItems">Items</string>
+    <string name="hint_reviewPrice">Price</string>
+    <string name="hint_reviewComments">Comments</string>
+    <string name="hint_reviewRating">My Rating</string>
 </resources>
