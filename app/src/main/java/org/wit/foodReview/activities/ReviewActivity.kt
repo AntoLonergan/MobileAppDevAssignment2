@@ -1,8 +1,9 @@
-package org.wit.foodReview
+package org.wit.foodReview.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.databinding.ActivityReviewBinding
 import timber.log.Timber
 import timber.log.Timber.i
@@ -10,6 +11,8 @@ import timber.log.Timber.i
 class ReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBinding
+
+    var review = ReviewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +25,9 @@ class ReviewActivity : AppCompatActivity() {
         i("Review Activity started...")
 
         binding.btnAdd.setOnClickListener() {
-            val reviewTitle = binding.reviewTitle.text.toString()
-            if (reviewTitle.isNotEmpty()) {
-                i("add Button Pressed: $reviewTitle")
+            review.title = binding.reviewTitle.text.toString()
+            if (review.title.isNotEmpty()) {
+                i("add Button Pressed: $review.title")
             }
             else {
                 Snackbar
