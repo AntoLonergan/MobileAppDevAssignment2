@@ -1,9 +1,9 @@
 package org.wit.foodReview.activities
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.wit.foodReview.main.MainApp
 import org.wit.foodReview.models.ReviewModel
@@ -11,20 +11,37 @@ import org.wit.foodreview.R
 import org.wit.foodreview.databinding.ActivityReviewBinding
 import timber.log.Timber.i
 
+
 class ReviewActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
+    //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
+
         i("Review Activity started...")
+
+        if (intent.hasExtra("review_edit")) {
+            review = intent.extras?.getParcelable("review_edit")!!
+            binding.reviewName.setText(review.name)
+            binding.reviewAddress.setText(review.address)
+            binding.reviewPostCode.setText(review.postCode)
+            binding.reviewJustEat.setText(review.justEat)
+            binding.reviewItems.setText(review.items)
+            binding.reviewPrice.setText(review.price)
+            binding.reviewComments.setText(review.comments)
+            binding.reviewRating.setText(review.rating)
+        }
 
         binding.btnAdd.setOnClickListener() {
             review.name = binding.reviewName.text.toString()
@@ -53,6 +70,7 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
         return super.onCreateOptionsMenu(menu)
