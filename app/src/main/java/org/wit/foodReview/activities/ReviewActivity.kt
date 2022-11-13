@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.wit.foodReview.helpers.showImagePicker
 import org.wit.foodReview.main.MainApp
 import org.wit.foodReview.models.ReviewModel
@@ -110,6 +111,10 @@ class ReviewActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
+                            review.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(review.image)
+                                .into(binding.placemarkImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
