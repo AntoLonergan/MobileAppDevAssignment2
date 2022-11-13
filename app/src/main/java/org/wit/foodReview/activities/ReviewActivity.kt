@@ -16,6 +16,7 @@ class ReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
+
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
 
@@ -61,22 +62,25 @@ class ReviewActivity : AppCompatActivity() {
                 review.items.isNotEmpty() &&
                 review.price.isNotEmpty() &&
                 review.comments.isNotEmpty() &&
-                review.rating.isNotEmpty()) {
+                review.rating.isNotEmpty()
+            ) {
                 Snackbar
-                    .make(it,R.string.enter_all_fields, Snackbar.LENGTH_LONG)
+                    .make(it, R.string.enter_all_fields, Snackbar.LENGTH_LONG)
                     .show()
-            }
-                else {
-                    if (edit) {
-                        app.reviews.update(review.copy())
-                    } else {
-                        app.reviews.create(review.copy())
-                    }
+            } else {
+                if (edit) {
+                    app.reviews.update(review.copy())
+                } else {
+                    app.reviews.create(review.copy())
                 }
-                setResult(RESULT_OK)
-                finish()
             }
+            setResult(RESULT_OK)
+            finish()
         }
+        binding.chooseImage.setOnClickListener {
+            i("Select image")
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
