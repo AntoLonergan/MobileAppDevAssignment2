@@ -60,27 +60,28 @@ class ReviewActivity : AppCompatActivity() {
             review.price = binding.reviewPrice.text.toString()
             review.comments = binding.reviewComments.text.toString()
             review.rating = binding.reviewRating.text.toString()
-            if (review.name.isNotEmpty() &&
-                review.address.isNotEmpty() &&
-                review.postCode.isNotEmpty() &&
-                review.justEat.isNotEmpty() &&
-                review.items.isNotEmpty() &&
-                review.price.isNotEmpty() &&
-                review.comments.isNotEmpty() &&
-                review.rating.isNotEmpty()
+            if (review.name.isEmpty() ||
+                review.address.isEmpty() ||
+                review.postCode.isEmpty() ||
+                review.justEat.isEmpty() ||
+                review.items.isEmpty() ||
+                review.price.isEmpty() ||
+                review.comments.isEmpty() ||
+                review.rating.isEmpty()
             ) {
                 Snackbar
                     .make(it, R.string.enter_all_fields, Snackbar.LENGTH_LONG)
                     .show()
-            } else {
+            }
+            else {
                 if (edit) {
                     app.reviews.update(review.copy())
                 } else {
                     app.reviews.create(review.copy())
                 }
+                setResult(RESULT_OK)
+                finish()
             }
-            setResult(RESULT_OK)
-            finish()
         }
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
