@@ -1,10 +1,14 @@
 package org.wit.foodReview.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import org.wit.foodReview.helpers.showImagePicker
 import org.wit.foodReview.main.MainApp
 import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.R
@@ -16,7 +20,7 @@ class ReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
-
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
 
@@ -78,8 +82,10 @@ class ReviewActivity : AppCompatActivity() {
             finish()
         }
         binding.chooseImage.setOnClickListener {
-            i("Select image")
+            showImagePicker(imageIntentLauncher)
         }
+
+        registerImagePickerCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,5 +100,20 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
