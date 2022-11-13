@@ -21,7 +21,7 @@ class ReviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        var edit = false
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
@@ -32,6 +32,7 @@ class ReviewActivity : AppCompatActivity() {
         i("Review Activity started...")
 
         if (intent.hasExtra("review_edit")) {
+            edit = true
             review = intent.extras?.getParcelable("review_edit")!!
             binding.reviewName.setText(review.name)
             binding.reviewAddress.setText(review.address)
@@ -41,6 +42,7 @@ class ReviewActivity : AppCompatActivity() {
             binding.reviewPrice.setText(review.price)
             binding.reviewComments.setText(review.comments)
             binding.reviewRating.setText(review.rating)
+            binding.btnAdd.setText(R.string.save_review)
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -60,17 +62,21 @@ class ReviewActivity : AppCompatActivity() {
                 review.price.isNotEmpty() &&
                 review.comments.isNotEmpty() &&
                 review.rating.isNotEmpty()) {
-                app.reviews.create(review.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
                 Snackbar
                     .make(it,R.string.enter_all_fields, Snackbar.LENGTH_LONG)
                     .show()
             }
+                else {
+                    if (edit) {
+                        app.reviews.update(review.copy())
+                    } else {
+                        app.reviews.create(review.copy())
+                    }
+                }
+                setResult(RESULT_OK)
+                finish()
+            }
         }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
