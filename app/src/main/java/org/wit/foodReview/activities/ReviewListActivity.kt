@@ -9,12 +9,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.foodReview.adapters.ReviewAdapter
+import org.wit.foodReview.adapters.ReviewListener
 import org.wit.foodReview.main.MainApp
+import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.R
 import org.wit.foodreview.databinding.ActivityReviewListBinding
 
+class ReviewListActivity : AppCompatActivity(), ReviewListener {
 
-class ReviewListActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var binding: ActivityReviewListBinding
 
@@ -29,7 +31,7 @@ class ReviewListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = ReviewAdapter(app.reviews)
+        binding.recyclerView.adapter = ReviewAdapter(app.reviews.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,7 +55,23 @@ class ReviewListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.reviews.size)
+                notifyItemRangeChanged(0,app.reviews.findAll().size)
+            }
+        }
+
+    override fun onReviewClick(review: ReviewModel) {
+        val launcherIntent = Intent(this, ReviewActivity::class.java)
+        launcherIntent.putExtra("review_edit", review)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.reviews.findAll().size)
             }
         }
 }

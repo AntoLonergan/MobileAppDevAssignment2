@@ -1,6 +1,11 @@
 package org.wit.foodReview.models
 
-data class ReviewModel(var name: String = "",
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class ReviewModel(var id: Long = 0,
+                       var name: String = "",
                        var address: String = "",
                        var postCode: String = "",
                        var justEat: String = "",
@@ -8,4 +13,4 @@ data class ReviewModel(var name: String = "",
                        var price: String = "",
                        var comments: String = "",
                        var rating: String = ""
-)
+) : Parcelable
