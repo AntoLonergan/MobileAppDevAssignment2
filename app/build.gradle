@@ -7,7 +7,6 @@ plugins {
 android {
     namespace 'org.wit.foodreview'
     compileSdk 33
-
     defaultConfig {
         applicationId "org.wit.foodreview"
         minSdk 30

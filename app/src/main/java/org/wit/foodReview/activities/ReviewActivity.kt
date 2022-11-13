@@ -65,7 +65,8 @@ class ReviewActivity : AppCompatActivity() {
                 finish()
             }
             else {
-                Snackbar.make(it,"Please Ensure All Fields Are Filled Out.", Snackbar.LENGTH_LONG)
+                Snackbar
+                    .make(it,R.string.enter_all_fields, Snackbar.LENGTH_LONG)
                     .show()
             }
         }
