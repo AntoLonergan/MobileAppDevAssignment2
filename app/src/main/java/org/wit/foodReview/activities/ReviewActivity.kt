@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.wit.foodReview.helpers.showImagePicker
 import org.wit.foodReview.main.MainApp
+import org.wit.foodReview.models.Location
 import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.R
 import org.wit.foodreview.databinding.ActivityReviewBinding
@@ -26,6 +27,7 @@ class ReviewActivity : AppCompatActivity() {
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +104,7 @@ class ReviewActivity : AppCompatActivity() {
 
         binding.reviewLocation.setOnClickListener {
             val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
 
@@ -145,6 +148,17 @@ class ReviewActivity : AppCompatActivity() {
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { i("Map Loaded") }
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $location")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
