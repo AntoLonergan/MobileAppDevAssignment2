@@ -1,6 +1,7 @@
 package org.wit.foodReview.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -24,6 +25,7 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +51,18 @@ class ReviewActivity : AppCompatActivity() {
             binding.reviewComments.setText(review.comments)
             binding.reviewRating.setText(review.rating)
             binding.btnAdd.setText(R.string.save_review)
+            Picasso.get()
+                .load(review.image)
+                .into(binding.placemarkImage)
+            if (review.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_review_image)
+            }
         }
+
+        binding.reviewLocation.setOnClickListener {
+            i ("Set Location Pressed")
+        }
+
 
         binding.btnAdd.setOnClickListener() {
             review.name = binding.reviewName.text.toString()
@@ -87,7 +100,13 @@ class ReviewActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
+        binding.reviewLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         registerImagePickerCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -116,10 +135,16 @@ class ReviewActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(review.image)
                                 .into(binding.placemarkImage)
+                            binding.chooseImage.setText(R.string.change_review_image)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
+    }
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { i("Map Loaded") }
     }
 }

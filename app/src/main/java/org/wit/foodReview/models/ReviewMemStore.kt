@@ -1,7 +1,5 @@
-package org.wit.review.models
+package org.wit.foodReview.models
 
-import org.wit.foodReview.models.ReviewModel
-import org.wit.foodReview.models.ReviewStore
 import timber.log.Timber.i
 
 var lastId = 0L
@@ -35,7 +33,7 @@ class ReviewMemStore : ReviewStore {
             foundReview.price = review.price
             foundReview.comments = review.comments
             foundReview.rating = review.rating
-
+            foundReview.image = review.image
             logAll()
         }
     }

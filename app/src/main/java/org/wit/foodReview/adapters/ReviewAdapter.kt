@@ -3,6 +3,7 @@ package org.wit.foodReview.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.databinding.CardReviewBinding
 
@@ -42,6 +43,7 @@ class ReviewAdapter constructor(private var reviews: List<ReviewModel>,
             binding.reviewPrice.text = review.price
             binding.reviewComments.text = review.comments
             binding.reviewRating.text = review.rating
+            Picasso.get().load(review.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onReviewClick(review) }
         }
     }
