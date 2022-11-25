@@ -99,7 +99,7 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
         binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher,this)
         }
 
         binding.reviewLocation.setOnClickListener {
@@ -139,7 +139,12 @@ class ReviewActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            review.image = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            review.image = image
+
                             Picasso.get()
                                 .load(review.image)
                                 .into(binding.placemarkImage)
@@ -150,6 +155,7 @@ class ReviewActivity : AppCompatActivity() {
                 }
             }
     }
+
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
