@@ -57,6 +57,7 @@ class ReviewJSONStore(private val context: Context) : ReviewStore {
             foundReview.lng = review.lng
             foundReview.zoom = review.zoom
             logAll()
+            serialize()
         }
     }
     private fun serialize() {
