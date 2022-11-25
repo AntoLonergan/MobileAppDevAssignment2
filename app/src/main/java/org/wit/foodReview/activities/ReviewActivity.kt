@@ -1,11 +1,18 @@
 package org.wit.foodReview.activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
+import org.wit.foodReview.helpers.showImagePicker
 import org.wit.foodReview.main.MainApp
+import org.wit.foodReview.models.Location
 import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.R
 import org.wit.foodreview.databinding.ActivityReviewBinding
@@ -16,8 +23,11 @@ class ReviewActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReviewBinding
     var review = ReviewModel()
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +53,18 @@ class ReviewActivity : AppCompatActivity() {
             binding.reviewComments.setText(review.comments)
             binding.reviewRating.setText(review.rating)
             binding.btnAdd.setText(R.string.save_review)
+            Picasso.get()
+                .load(review.image)
+                .into(binding.placemarkImage)
+            if (review.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_review_image)
+            }
         }
+
+        binding.reviewLocation.setOnClickListener {
+            i ("Set Location Pressed")
+        }
+
 
         binding.btnAdd.setOnClickListener() {
             review.name = binding.reviewName.text.toString()
@@ -54,29 +75,47 @@ class ReviewActivity : AppCompatActivity() {
             review.price = binding.reviewPrice.text.toString()
             review.comments = binding.reviewComments.text.toString()
             review.rating = binding.reviewRating.text.toString()
-            if (review.name.isNotEmpty() &&
-                review.address.isNotEmpty() &&
-                review.postCode.isNotEmpty() &&
-                review.justEat.isNotEmpty() &&
-                review.items.isNotEmpty() &&
-                review.price.isNotEmpty() &&
-                review.comments.isNotEmpty() &&
-                review.rating.isNotEmpty()) {
+            if (review.name.isEmpty() ||
+                review.address.isEmpty() ||
+                review.postCode.isEmpty() ||
+                review.justEat.isEmpty() ||
+                review.items.isEmpty() ||
+                review.price.isEmpty() ||
+                review.comments.isEmpty() ||
+                review.rating.isEmpty()
+            ) {
                 Snackbar
-                    .make(it,R.string.enter_all_fields, Snackbar.LENGTH_LONG)
+                    .make(it, R.string.enter_all_fields, Snackbar.LENGTH_LONG)
                     .show()
             }
-                else {
-                    if (edit) {
-                        app.reviews.update(review.copy())
-                    } else {
-                        app.reviews.create(review.copy())
-                    }
+            else {
+                if (edit) {
+                    app.reviews.update(review.copy())
+                } else {
+                    app.reviews.create(review.copy())
                 }
                 setResult(RESULT_OK)
                 finish()
             }
         }
+        binding.chooseImage.setOnClickListener {
+            showImagePicker(imageIntentLauncher)
+        }
+
+        binding.reviewLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (review.zoom != 0f) {
+                location.lat =  review.lat
+                location.lng = review.lng
+                location.zoom = review.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+        registerImagePickerCallback()
+        registerMapCallback()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
@@ -90,5 +129,44 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            review.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(review.image)
+                                .into(binding.placemarkImage)
+                            binding.chooseImage.setText(R.string.change_review_image)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            review.lat = location.lat
+                            review.lng = location.lng
+                            review.zoom = location.zoom
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
