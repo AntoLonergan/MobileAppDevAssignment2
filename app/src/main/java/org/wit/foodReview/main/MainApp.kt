@@ -7,11 +7,12 @@ import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val reviews = ReviewMemStore()
+    lateinit var reviews: ReviewMemStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Review started")
+        reviews = ReviewMemStore()
+        i("Review App started")
     }
 }
