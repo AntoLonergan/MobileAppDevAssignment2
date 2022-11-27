@@ -19,6 +19,7 @@ class ReviewListActivity : AppCompatActivity(), ReviewListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityReviewListBinding
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +60,10 @@ class ReviewListActivity : AppCompatActivity(), ReviewListener {
             }
         }
 
-    override fun onReviewClick(review: ReviewModel) {
+    override fun onReviewClick(review: ReviewModel, pos : Int) {
         val launcherIntent = Intent(this, ReviewActivity::class.java)
         launcherIntent.putExtra("review_edit", review)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -73,5 +75,7 @@ class ReviewListActivity : AppCompatActivity(), ReviewListener {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.reviews.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 }

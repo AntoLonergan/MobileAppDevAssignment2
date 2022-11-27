@@ -41,6 +41,10 @@ class ReviewMemStore : ReviewStore {
         }
     }
 
+    override fun delete(review: ReviewModel) {
+        reviews.remove(review)
+    }
+
     private fun logAll() {
         reviews.forEach { i("$it") }
     }

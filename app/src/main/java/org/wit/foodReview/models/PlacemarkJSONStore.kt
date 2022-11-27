@@ -60,6 +60,12 @@ class ReviewJSONStore(private val context: Context) : ReviewStore {
             serialize()
         }
     }
+
+    override fun delete(review: ReviewModel) {
+        reviews.remove(review)
+        serialize()
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(reviews, listType)
         write(context, JSON_FILE, jsonString)

@@ -3,6 +3,7 @@
     <string name="button_addReview">Add Review</string>
     <string name="menu_addReview">Add</string>
     <string name="menu_cancelReview">Cancel</string>
+    <string name="menu_deleteReview">Delete</string>
     <string name="enter_all_fields"> Please Fill in all Fields </string>
     <string name="save_review"> Save Review </string>
     <string name="button_addImage"> Add Image </string>
