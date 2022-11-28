@@ -8,7 +8,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import org.wit.foodReview.main.MainApp
+import org.wit.foodReview.models.ReviewModel
 import org.wit.foodreview.databinding.ActivityReviewMapsBinding
 import org.wit.foodreview.databinding.ContentReviewMapsBinding
 
@@ -64,14 +66,29 @@ class ReviewMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener 
         app.reviews.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.name).position(loc)
-            map.setOnMarkerClickListener(this)
             map.addMarker(options)?.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+            map.setOnMarkerClickListener(this)
+
         }
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        contentBinding.currentName.text = marker.title
+        //val review = marker.tag as ReviewModel
+       // contentBinding.currentName.text = review.name
+        //contentBinding.currentAddress.text = review.address
+        //Picasso.get().load(review.image).into(contentBinding.currentImage)
+        val foundReview: ReviewModel? = app.reviews.findAll().find { p -> p.id == marker.tag }
+        contentBinding.currentName.text = foundReview?.name
+        contentBinding.currentAddress.text = foundReview?.address
+        contentBinding.currentPostCode.text = foundReview?.postCode
+        contentBinding.currentJustEat.text = foundReview?.justEat
+        contentBinding.currentItems.text = foundReview?.items
+        contentBinding.currentPrice.text = foundReview?.price
+        contentBinding.currentComments.text = foundReview?.comments
+        contentBinding.currentRating.text = foundReview?.rating
+        Picasso.get().load(foundReview?.image).into(contentBinding.currentImage)
+
 
         return false
     }
