@@ -27,11 +27,12 @@ class ReviewActivity : AppCompatActivity() {
     //val reviews = ArrayList<ReviewModel>()
     lateinit var app: MainApp
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var edit = false
     //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
+        edit = false
         binding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
@@ -99,7 +100,7 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
         binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher,this)
         }
 
         binding.reviewLocation.setOnClickListener {
@@ -119,14 +120,17 @@ class ReviewActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
+            R.id.item_delete -> {
+                setResult(99)
+                app.reviews.delete(review)
                 finish()
-            }
+            }        R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -139,7 +143,12 @@ class ReviewActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            review.image = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            review.image = image
+
                             Picasso.get()
                                 .load(review.image)
                                 .into(binding.placemarkImage)
@@ -150,6 +159,7 @@ class ReviewActivity : AppCompatActivity() {
                 }
             }
     }
+
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())

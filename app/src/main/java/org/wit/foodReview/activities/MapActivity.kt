@@ -43,6 +43,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             .draggable(true)
             .position(loc)
         map.addMarker(options)
+        map.uiSettings.isZoomControlsEnabled = true
         map.setOnMarkerClickListener(this)
         map.setOnMarkerDragListener(this)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))

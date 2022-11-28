@@ -9,8 +9,9 @@ import org.wit.foodreview.databinding.CardReviewBinding
 
 
 interface ReviewListener {
-    fun onReviewClick(review: ReviewModel)
+    fun onReviewClick(review: ReviewModel, position : Int)
 }
+
 
 class ReviewAdapter constructor(private var reviews: List<ReviewModel>,
                                    private val listener: ReviewListener
@@ -44,7 +45,7 @@ class ReviewAdapter constructor(private var reviews: List<ReviewModel>,
             binding.reviewComments.text = review.comments
             binding.reviewRating.text = review.rating
             Picasso.get().load(review.image).resize(200,200).into(binding.imageIcon)
-            binding.root.setOnClickListener { listener.onReviewClick(review) }
+            binding.root.setOnClickListener { listener.onReviewClick(review,adapterPosition) }
         }
     }
 }
