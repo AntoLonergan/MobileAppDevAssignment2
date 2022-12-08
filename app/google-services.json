@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "781245605148",
+    "project_id": "mobile-app-dev-1-3d196",
+    "storage_bucket": "mobile-app-dev-1-3d196.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781245605148:android:89bc15ca015286eb0fc6d9",
+        "android_client_info": {
+          "package_name": "org.wit.foodreview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781245605148-654i4spaaqim40vcqob0kcun102kk63b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGCGUv9xKLQBG0_7CgrjOPbTgKA9_1lbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781245605148-654i4spaaqim40vcqob0kcun102kk63b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
