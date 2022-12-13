@@ -29,10 +29,10 @@
 
             <TextView
                 android:id="@+id/currentName"
-                android:layout_width="107dp"
+                android:layout_width="162dp"
                 android:layout_height="29dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -41,10 +41,10 @@
 
             <TextView
                 android:id="@+id/currentAddress"
-                android:layout_width="108dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="163dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +52,10 @@
 
             <TextView
                 android:id="@+id/currentPostCode"
-                android:layout_width="108dp"
+                android:layout_width="164dp"
                 android:layout_height="27dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,10 +63,10 @@
 
             <TextView
                 android:id="@+id/currentJustEat"
-                android:layout_width="108dp"
-                android:layout_height="27dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="164dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,9 +74,9 @@
 
             <TextView
                 android:id="@+id/currentItems"
-                android:layout_width="108dp"
-                android:layout_height="27dp"
-                android:layout_marginStart="64dp"
+                android:layout_width="168dp"
+                android:layout_height="63dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/black"
@@ -85,21 +85,21 @@
 
             <TextView
                 android:id="@+id/currentPrice"
-                android:layout_width="108dp"
-                android:layout_height="27dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="180dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
                 android:text="TextView"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currentItems" />
+                app:layout_constraintBottom_toTopOf="@+id/currentRating"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/currentComments"
-                android:layout_width="108dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="96dp"
+                android:layout_width="173dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="20dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,10 +107,10 @@
 
             <TextView
                 android:id="@+id/currentRating"
-                android:layout_width="159dp"
-                android:layout_height="56dp"
+                android:layout_width="150dp"
+                android:layout_height="22dp"
                 android:layout_marginEnd="44dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="48dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/currentImage"
@@ -120,8 +120,8 @@
                 android:id="@+id/currentImage"
                 android:layout_width="174dp"
                 android:layout_height="142dp"
-                android:layout_marginStart="204dp"
-                android:layout_marginTop="108dp"
+                android:layout_marginStart="220dp"
+                android:layout_marginTop="104dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
