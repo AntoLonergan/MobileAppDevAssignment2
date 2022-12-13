@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +40,7 @@ class ReviewActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
+        setupNumberPicker()
 
         i("Review Activity started...")
 
@@ -52,7 +54,6 @@ class ReviewActivity : AppCompatActivity() {
             binding.reviewItems.setText(review.items)
             binding.reviewPrice.setText(review.price)
             binding.reviewComments.setText(review.comments)
-            binding.reviewRating.setText(review.rating)
             binding.btnAdd.setText(R.string.save_review)
             Picasso.get()
                 .load(review.image)
@@ -75,15 +76,13 @@ class ReviewActivity : AppCompatActivity() {
             review.items = binding.reviewItems.text.toString()
             review.price = binding.reviewPrice.text.toString()
             review.comments = binding.reviewComments.text.toString()
-            review.rating = binding.reviewRating.text.toString()
             if (review.name.isEmpty() ||
                 review.address.isEmpty() ||
                 review.postCode.isEmpty() ||
                 review.justEat.isEmpty() ||
                 review.items.isEmpty() ||
                 review.price.isEmpty() ||
-                review.comments.isEmpty() ||
-                review.rating.isEmpty()
+                review.comments.isEmpty()
             ) {
                 Snackbar
                     .make(it, R.string.enter_all_fields, Snackbar.LENGTH_LONG)
@@ -117,6 +116,17 @@ class ReviewActivity : AppCompatActivity() {
         registerImagePickerCallback()
         registerMapCallback()
     }
+
+    private fun setupNumberPicker() {
+        val numberPicker = binding.numberPicker
+        numberPicker.minValue = 0
+        numberPicker.maxValue = 10
+        numberPicker.wrapSelectorWheel = true
+        numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            review.rating = newVal.toString()
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_review, menu)
